@@ -32,11 +32,11 @@ class Applicant_Details(Resource):
 class Expiry_Details(Resource):
     def get(self, year):
         conn = e.connect()
-        # query = conn.execute("select * from trucks where permit like ('%s%')" % (year))
-        print("select * from trucks where permit like ('?')" % (year))
+        query = conn.execute("select * from trucks where permit = '%s'" %year)
+        # print("select * from trucks where permit like ('?')" % (year))
         # Query the result and get cursor.Dumping that data to a JSON is looked by extension
-        # result = {'data': [dict(zip(tuple(query.keys()), i)) for i in query.cursor]}
-        # return result
+        result = {'data': [dict(zip(tuple(query.keys()), i)) for i in query.cursor]}
+        return result
 
 
 api.add_resource(Applicant_Details, '/applicants/<string:applicant_name>')
